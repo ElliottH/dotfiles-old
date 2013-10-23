@@ -38,3 +38,6 @@ end
 
 HOME = Dir.home
 HERE = Dir.pwd
+
+# Mutt
+link_file("#{HERE}/mutt/muttrc", "#{HOME}/.muttrc")

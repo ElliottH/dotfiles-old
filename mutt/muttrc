@@ -1,0 +1,61 @@
+# Set IMAP address, SMTP address, email address and name in the following file.
+# e.g. set folder="imaps://user@host"
+#      set smtp_url="smtp://host:25/"
+#      set from="user@host"
+#      set realname="Your Name"
+source ~/.muttrc.local
+
+# Automatically log in to this mailbox at startup
+set spoolfile="=INBOX"
+set record="=Sent"
+set postponed="=Drafts"
+set trash="=Trash"
+
+# activate TLS if available on the server
+set ssl_starttls=yes
+# always use SSL when connecting to a server
+# set ssl_force_tls=yes
+# Don't wait to enter mailbox manually 
+unset imap_passive        
+# Automatically poll subscribed mailboxes for new mail (new in 1.5.11)
+set imap_check_subscribed
+# Reduce polling frequency to a sane level
+set mail_check=60
+# And poll the current mailbox more often (not needed with IDLE in post 1.5.11)
+set timeout=10
+# keep a cache of headers for faster loading (1.5.9+?)
+set header_cache=~/.hcache
+# Display download progress every 5K
+set net_inc=5
+
+set editor="vim"
+#set editor="nano -AS --syntax=mutt"
+#set editor="emacs"
+
+# For better looks
+set markers=no # don't put '+' at the beginning of wrapped lines
+set pager_index_lines= 5 # how large is the index window?
+set sort = 'threads'
+set sort_aux = 'last-date-received'
+
+# Stop that annoying certificate warning on start-up
+set ssl_verify_dates = no
+set certificate_file="~/.mutt_certificates"
+
+# some sort of solarized-looking coloring
+# (provided your terminal is setup right.)
+color normal	white	default
+color error	red	default
+color tree	green	default
+color indicator	default brightblack
+color status	cyan	brightblack
+color index         blue            default         "~N|~U"
+
+color hdrdefault	brightblack	default
+color header	green	default "^(From|Subject)"
+color signature	brightblack	default
+color attachment	yellow	default
+
+color quoted	green	default
+color quoted1	cyan    default
+color quoted2	yellow	default
