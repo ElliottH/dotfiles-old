@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# This script wraps SSH and creates a FIFO of all your configuration files.
+# Adapted from:
+# http://www.linuxsysadmintutorials.com/multiple-ssh-client-configuration-files
+
+ssh() {
+    TMPDIR=~/.ssh
+    FIFO=._ssh_fifo
+
+    case "$(uname -s)" in
+        Linux)
+            tmp_fifo=$(mktemp -u --suffix=$FIFO)
+            ;;
+        Darwin)
+            tmp_fifo=$(mktemp -u -t $FIFO)
+            ;;
+        *)
+            echo 'unsupported OS'
+            exit
+            ;;
+    esac
+
+    # cleanup first
+    rm $TMPDIR/$FIFO* 2>/dev/null
+
+    mkfifo "$tmp_fifo" 
+    cat ~/.ssh/config ~/.ssh/config.* >"$tmp_fifo" 2>/dev/null & 
+    /usr/bin/ssh -F "$tmp_fifo" "$@"
+    rm "$tmp_fifo"
+}
+
+ssh $*

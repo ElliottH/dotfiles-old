@@ -36,8 +36,21 @@ def link_file(source, dest)
   File.symlink(source, dest) == 0
 end
 
+def mkdir_ifne(dir)
+  unless File.directory?(dir)
+    Dir.mkdir(dir)
+  end
+end
+
 HOME = Dir.home
 HERE = Dir.pwd
 
 # Mutt
 link_file("#{HERE}/mutt/muttrc", "#{HOME}/.muttrc")
+
+# SSH
+mkdir_ifne("#{HOME}/.ssh")
+link_file("#{HERE}/ssh/config", "#{HOME}/.ssh/config")
+
+mkdir_ifne("#{HOME}/bin")
+link_file("#{HERE}/bin/ssh", "#{HOME}/bin/ssh")

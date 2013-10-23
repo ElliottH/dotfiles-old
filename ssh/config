@@ -1,0 +1,10 @@
+# The script bin/ssh wraps ssh to allow for multiple configuration files.
+# All config.* files in ~/.ssh/ are appended to this file when ssh is run.
+
+# Add other configuration options (like Host definitions) to another config
+# file, e.g. ~/.ssh/config.personal, ~/.ssh/config.work.
+
+Host *
+    ControlMaster auto
+    ControlPersist 3600
+    ControlPath ~/.ssh/master-%r@%h:%p
