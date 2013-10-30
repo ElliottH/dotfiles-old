@@ -69,4 +69,7 @@ if is_linux?
   mkdir_ifne("#{HOME/.xmonad}")
   link_file("#{HERE}/xmonad/xmonad.hs", "#{HOME}/.xmonad/xmonad.hs")
   link_file("#{HERE}/xmonad/startup.sh", "#{HOME}/bin/startup.sh")
+
+  # xmobar
+  link_file("#{HERE}/xmonad/xmobarrc", "#{HOME}/.xmobarrc")
 end
