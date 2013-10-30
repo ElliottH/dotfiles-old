@@ -64,4 +64,9 @@ if is_linux?
   # Terminator
   mkdir_ifne("#{HOME}/.config/terminator")
   link_file("#{HERE}/term/terminator", "#{HOME}/.config/terminator/config")
+
+  # xmonad
+  mkdir_ifne("#{HOME/.xmonad}")
+  link_file("#{HERE}/xmonad/xmonad.hs", "#{HOME}/.xmonad/xmonad.hs")
+  link_file("#{HERE}/xmonad/startup.sh", "#{HOME}/bin/startup.sh")
 end
