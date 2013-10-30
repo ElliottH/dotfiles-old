@@ -2,6 +2,7 @@
 
 require 'io/console'
 require 'pathname'
+require 'fileutils'
 
 def confirm_delete(dest, msg = "Delete #{dest}?")
   print "#{msg} [y/N] "
@@ -38,8 +39,12 @@ end
 
 def mkdir_ifne(dir)
   unless File.directory?(dir)
-    Dir.mkdir(dir)
+    Dir.mkdir_p(dir)
   end
+end
+
+def is_linux?
+  RUBY_PLATFORM.match(/linux/) != nil
 end
 
 HOME = Dir.home
@@ -54,3 +59,9 @@ link_file("#{HERE}/ssh/config", "#{HOME}/.ssh/config")
 
 mkdir_ifne("#{HOME}/bin")
 link_file("#{HERE}/bin/ssh", "#{HOME}/bin/ssh")
+
+if is_linux?
+  # Terminator
+  mkdir_ifne("#{HOME}/.config/terminator")
+  link_file("#{HERE}/term/terminator", "#{HOME}/.config/terminator/config")
+end
