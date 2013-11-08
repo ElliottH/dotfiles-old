@@ -1,0 +1,36 @@
+music_directory			"~/Music"
+playlist_directory		"~/.mpd/playlists"
+db_file					"~/.mpd/tag_cache"
+log_file				"~/.mpd/mpd.log"
+pid_file				"~/.mpd/pid"
+state_file				"~/.mpd/state"
+sticker_file			"~/.mpd/sticker.sql"
+
+# Don't expose MPD to the network
+bind_to_address			"localhost"
+
+gapless_mp3_playback	"yes"
+
+follow_outside_symlinks	"yes"
+
+input {
+	plugin				"curl"
+}
+
+# FIFO output, used by ncmpcpp for Visualiser
+audio_output {
+	type				"fifo"
+	name				"my_fifo"
+	path				"/tmp/mpd.fifo"
+}
+
+# Pulseaudio Output
+audio_output {
+	type				"pulse"
+	name				"My MPD PulseAudio Output"
+}
+
+# Allow UTF filenames and tags.
+filesystem_charset		"UTF-8"
+id3v1_encoding			"UTF-8"
+

@@ -1,0 +1,33 @@
+mpd_host = "localhost"
+mpd_port = "6600"
+mpd_music_dir = "~/Music"
+
+visualizer_fifo_path = "/tmp/mpd.fifo"
+visualizer_output_name = "my_fifo"
+visualizer_sync_interval = "30"
+visualizer_type = "spectrum"
+
+message_delay_time = "4"
+
+song_status_format = "{{%a - }{%t}{ (%b)}}|{%f}"
+song_library_format = "{%n }{%t}|{%f}"
+
+playlist_separate_albums = "yes"
+playlist_display_mode = "columns" (classic/columns)
+
+autocenter_mode = "yes"
+centered_cursor = "no"
+fancy_scrolling = "yes"
+
+ncmpc_like_songs_adding = "yes" #(enabled - add/remove, disabled - always add)
+
+display_screens_numbers_on_start = "no"
+screen_switcher_mode = "sequence: 2 -> 5"
+
+clock_display_seconds = "yes"
+
+display_volume_level = "no"
+
+ignore_leading_the = "yes"
+media_library_display_date = "no"
+media_library_disable_two_column_mode = "yes"

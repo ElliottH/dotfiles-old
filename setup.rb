@@ -61,6 +61,14 @@ mkdir_ifne("#{HOME}/bin")
 link_file("#{HERE}/bin/ssh", "#{HOME}/bin/ssh")
 
 if is_linux?
+  # mpd
+  mkdir_ifne("#{HOME}/.mpd")
+  link_file("#{HERE}/mpd/mpd", "#{HOME}/.mpd/mpd.conf")
+
+  # ncmpcpp
+  mkdir_ifne("#{HOME}/.ncmpcpp")
+  link_file("#{HERE}/mpd/ncmpcpp", "#{HOME}/.ncmpcpp/config")
+
   # Terminator
   mkdir_ifne("#{HOME}/.config/terminator")
   link_file("#{HERE}/term/terminator", "#{HOME}/.config/terminator/config")
