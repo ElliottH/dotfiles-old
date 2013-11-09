@@ -43,7 +43,7 @@ end
 
 def mkdir_ifne(dir)
   unless File.directory?(dir)
-    Dir.mkdir_p(dir)
+    FileUtils::mkdir_p(dir)
   end
 end
 
