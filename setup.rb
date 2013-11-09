@@ -37,10 +37,18 @@ def link_file(source, dest)
   File.symlink(source, dest) == 0
 end
 
+def link_dotfile(source, dest)
+  link_file("#{HERE}/#{source}", "#{HOME}/#{dest}")
+end
+
 def mkdir_ifne(dir)
   unless File.directory?(dir)
     Dir.mkdir_p(dir)
   end
+end
+
+def mkhomedir(dir)
+  mkdir_ifne("#{HOME}/#{dir}")
 end
 
 def is_linux?
@@ -51,33 +59,33 @@ HOME = Dir.home
 HERE = Dir.pwd
 
 # Mutt
-link_file("#{HERE}/mutt/muttrc", "#{HOME}/.muttrc")
+link_dotfile('mutt/muttrc', '.muttrc')
 
 # SSH
-mkdir_ifne("#{HOME}/.ssh")
-link_file("#{HERE}/ssh/config", "#{HOME}/.ssh/config")
+mkhomedir('.ssh')
+link_dotfile('ssh/config', '.ssh/config')
 
-mkdir_ifne("#{HOME}/bin")
-link_file("#{HERE}/bin/ssh", "#{HOME}/bin/ssh")
+mkhomedir('bin')
+link_dotfile('bin/ssh', 'bin/ssh')
 
 if is_linux?
   # mpd
-  mkdir_ifne("#{HOME}/.mpd")
-  link_file("#{HERE}/mpd/mpd", "#{HOME}/.mpd/mpd.conf")
+  mkhomedir('.mpd')
+  link_dotfile('mpd/mpd', '.mpd/mpd.conf')
 
   # ncmpcpp
-  mkdir_ifne("#{HOME}/.ncmpcpp")
-  link_file("#{HERE}/mpd/ncmpcpp", "#{HOME}/.ncmpcpp/config")
+  mkhomedir('.ncmpcpp')
+  link_dotfile('mpd/ncmpcpp', '.ncmpcpp/config')
 
   # Terminator
-  mkdir_ifne("#{HOME}/.config/terminator")
-  link_file("#{HERE}/term/terminator", "#{HOME}/.config/terminator/config")
+  mkhomedir('.config/terminator')
+  link_dotfile('term/terminator', '.config/terminator/config')
 
   # xmonad
-  mkdir_ifne("#{HOME/.xmonad}")
-  link_file("#{HERE}/xmonad/xmonad.hs", "#{HOME}/.xmonad/xmonad.hs")
-  link_file("#{HERE}/xmonad/startup.sh", "#{HOME}/bin/startup.sh")
+  mkhomedir('.xmonad')
+  link_dotfile('xmonad/xmonad.hs', '.xmonad/xmonad.hs')
+  link_dotfile('xmonad/startup.sh', 'bin/startup.sh')
 
   # xmobar
-  link_file("#{HERE}/xmonad/xmobarrc", "#{HOME}/.xmobarrc")
+  link_dotfile('xmonad/xmobarrc', '.xmobarrc')
 end
