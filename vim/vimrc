@@ -1,0 +1,139 @@
+execute pathogen#infect()
+
+set nocompatible
+set background=dark
+colorscheme solarized
+
+set rtp+=~/.local/lib/python2.7/site-packages/powerline/bindings/vim
+set rtp+=~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim
+set laststatus=2 " Always display the statusline in all windows
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+
+" swapping : and ;, I hate shift
+noremap ; :
+noremap : ;
+
+"autocmd vimenter * NERDTree
+
+map <C-p> ;CtrlP<CR>
+
+map <C-n> ;NERDTreeToggle<CR>
+autocmd vimenter * if !argc() | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" Highlighting for long lines
+augroup vimrc_autocmds
+      autocmd BufEnter * highlight OverLength ctermbg=0
+      autocmd BufEnter * match OverLength /\%80v.\+/
+augroup END
+
+set number				" Show line numbers
+"set linebreak				" Break lines at word (requires Wrap lines)
+"set showbreak=+++			" Wrap-broken line prefix
+set textwidth=80			" Line wrap (number of cols)
+set showmatch				" Highlight matching brace
+set visualbell				" Use visual bell (no beeping)
+ 
+set hlsearch				" Highlight all search results
+set smartcase				" Enable smart-case search
+set ignorecase				" Always case-insensitive
+set incsearch				" Searches for strings incrementally
+ 
+set autoindent				" Auto-indent new lines
+set expandtab				" Use spaces instead of tabs
+set shiftwidth=4			" Number of auto-indent spaces
+set smartindent				" Enable smart-indent
+set smarttab				" Enable smart-tabs
+set softtabstop=4			" Number of spaces per Tab
+ 
+set ruler				" Show row and column ruler information
+
+set autochdir				" Change working directory to open buffer
+ 
+set undolevels=1000			" Number of undo levels
+set backspace=indent,eol,start		" Backspace behaviour
+
+syntax enable				" Set syntax highlighting to always on
+
+filetype plugin indent on		" Set automatic filetype detection to on
+
+set magic				" Regular expressions
+
+set showmatch				" Show matching brackets
+
+set encoding=utf8
+set ffs=unix,dos,mac
+
+set wildmenu
+set wildmode=list:longest
+
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=0
+
+" Make splits easier to use
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+set splitbelow
+set splitright
+
+" Smart Home key
+noremap <expr> <silent> <Home> col('.') == match(getline('.'),'\S')+1 ? '0' : '^'
+imap <silent> <Home> <C-O><Home>
+
+" Keep cursor in the middle
+set scrolloff=9999
+
+if has("autocmd")
+        "autocmd BufRead *.txt, *.md set spell
+        autocmd BufRead /tmp/mutt-* set tw=72 ft=mail nocindent spell  " width, mail syntax hilight, spellcheck
+        autocmd BufRead,BufNewFile *.md set spell
+        autocmd FileType gitcommit set spell
+endif
+
+" Space toggles a fold if there is one, otherwise behaves normally
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
+
+" http://stackoverflow.com/a/9528322
+
+" Save your backups to a less annoying place than the current directory.
+" If you have .vim-backup in the current directory, it'll use that.
+" Otherwise it saves it to ~/.vim/backup or . if all else fails.
+if isdirectory($HOME . '/.vim/backup') == 0
+  :silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
+endif
+set backupdir-=.
+set backupdir+=.
+set backupdir-=~/
+set backupdir^=~/.vim/backup/
+set backupdir^=./.vim-backup/
+set backup
+
+" Save your swp files to a less annoying place than the current directory.
+" If you have .vim-swap in the current directory, it'll use that.
+" Otherwise it saves it to ~/.vim/swap, ~/tmp or .
+if isdirectory($HOME . '/.vim/swap') == 0
+  :silent !mkdir -p ~/.vim/swap >/dev/null 2>&1
+endif
+set directory=./.vim-swap//
+set directory+=~/.vim/swap//
+set directory+=~/tmp//
+set directory+=.
+
+" viminfo stores the the state of your previous editing session
+set viminfo+=n~/.vim/viminfo
+
+if exists("+undofile")
+  " undofile - This allows you to use undos after exiting and restarting
+  " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
+  " :help undo-persistence
+  " This is only present in 7.3+
+  if isdirectory($HOME . '/.vim/undo') == 0
+    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+  endif
+  set undodir=./.vim-undo//
+  set undodir+=~/.vim/undo//
+  set undofile
+endif
