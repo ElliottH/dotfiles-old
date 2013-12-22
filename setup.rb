@@ -10,9 +10,7 @@ def confirm_delete(dest, msg = "Delete #{dest}?")
   char = STDIN.getch
   print "#{char}\n"
 
-  unless char.match(/y/)
-    return false
-  end
+  return false unless char.match(/y/)
 
   if File.directory?(dest)
     File.rmdir(dest)
@@ -31,7 +29,7 @@ def link_file(source, dest)
     end
   elsif File.symlink?(dest)
     # Broken symlink
-    confirm_delete(dest, "Symlink #{dest} already exists, but is broken, replace?")
+    confirm_delete(dest, "Symlink #{dest} exists, but is broken, replace?")
   end
 
   File.symlink(source, dest) == 0
@@ -42,9 +40,7 @@ def link_dotfile(source, dest)
 end
 
 def mkdir_ifne(dir)
-  unless File.directory?(dir)
-    FileUtils::mkdir_p(dir)
-  end
+  FileUtils.mkdir_p(dir) unless File.directory?(dir)
 end
 
 def mkhomedir(dir)
@@ -52,7 +48,7 @@ def mkhomedir(dir)
 end
 
 def is_linux?
-  RUBY_PLATFORM.match(/linux/) != nil
+  /linux/ =~ RUBY_PLATFORM
 end
 
 HOME = Dir.home
