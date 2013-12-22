@@ -68,6 +68,9 @@ link_dotfile('bin/ssh', 'bin/ssh')
 link_dotfile('vim/vimrc', '.vimrc')
 link_dotfile('vim/vim', '.vim')
 
+# tmux
+link_dotfile('tmux/tmux.conf', '.tmux.conf')
+
 if is_linux?
   # mpd
   mkhomedir('.mpd')
