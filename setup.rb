@@ -64,6 +64,10 @@ link_dotfile('ssh/config', '.ssh/config')
 mkhomedir('bin')
 link_dotfile('bin/ssh', 'bin/ssh')
 
+# vim
+link_dotfile('vim/vimrc', '.vimrc')
+link_dotfile('vim/vim', '.vim')
+
 if is_linux?
   # mpd
   mkhomedir('.mpd')
