@@ -71,6 +71,10 @@ link_dotfile('vim/vim', '.vim')
 # tmux
 link_dotfile('tmux/tmux.conf', '.tmux.conf')
 
+# zsh
+link_dotfile('zsh/zshrc', '.zshrc')
+link_dotfile('zsh/oh-my-zsh', '.oh-my-zsh')
+
 if is_linux?
   # mpd
   mkhomedir('.mpd')
