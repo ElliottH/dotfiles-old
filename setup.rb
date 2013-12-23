@@ -88,6 +88,9 @@ if is_linux?
   mkhomedir('.config/terminator')
   link_dotfile('term/terminator', '.config/terminator/config')
 
+  #powerline
+  link_dotfile('powerline', '.config/powerline')
+
   # xmonad
   mkhomedir('.xmonad')
   link_dotfile('xmonad/xmonad.hs', '.xmonad/xmonad.hs')
